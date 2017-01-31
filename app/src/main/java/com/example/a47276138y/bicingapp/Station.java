@@ -21,7 +21,7 @@ public class Station {
     private String status;
 
     public Station(){
-        
+
     }
 
 
