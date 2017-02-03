@@ -47,14 +47,15 @@ public class BicingStationsActivityFragment extends Fragment {
 
     @Override
     public void onStart() {
+        super.onStart();
         GetStatonsTask task = new GetStatonsTask();
         task.execute();
     }
 
-    private class GetStatonsTask extends AsyncTask<Object, Object, ArrayList<Station>> {
+    private class GetStatonsTask extends AsyncTask<Void, Void, ArrayList<Station>> {
         @Override
 
-        protected ArrayList<Station> doInBackground(Object... voids) {
+        protected ArrayList<Station> doInBackground(Void... voids) {
 
             ArrayList<Station> stations = BicingAPI.getStations();
 
