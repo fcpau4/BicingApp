@@ -11,4 +11,14 @@
     tools:context="com.example.a47276138y.bicingapp.BicingStationsActivityFragment"
     tools:showIn="@layout/activity_bicing_stations">
 
+
+    <org.osmdroid.views.MapView
+        android:id="@id/map"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+
+    </org.osmdroid.views.MapView>
+
 </RelativeLayout>

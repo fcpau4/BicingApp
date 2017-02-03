@@ -1,9 +1,19 @@
 package com.example.a47276138y.bicingapp.api;
 
 import android.net.Uri;
+import android.util.Log;
 
+import com.example.a47276138y.bicingapp.Station;
+import com.example.a47276138y.bicingapp.network_utils.NetworkConnection;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 
 /**
  * Created by 47276138y on 31/01/17.
@@ -17,7 +27,7 @@ public class BicingAPI {
     /**This method creates a URL.
      * @return URL
      */
-    public static URL BuiltINFOStationsUrl() {
+    public static ArrayList<Station> getStations () {
 
         Uri builtUri = Uri.parse(STATIONS_INFO_URL).buildUpon()
                 .build();
@@ -30,6 +40,79 @@ public class BicingAPI {
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
-        return url;
+        return doCall(url);
     }
+
+
+    /**
+     * It does call to API News and gets raw json to handle.
+     * @param url
+     * @return json response from API.
+     */
+    private static ArrayList<Station> doCall(URL url){
+
+        try {
+            String jsonResponse = NetworkConnection.NetworkUtils.getResponseFromHttpUrl(url);
+            return convertJson(jsonResponse);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+    /**
+     * It converts raw json to objects.
+     * @param jsonStations
+     * @return ArrayList<Stations>
+     */
+    public static ArrayList<Station> convertJson(String jsonStations){
+
+        ArrayList<Station> stations = new ArrayList<>();
+
+        try {
+            JSONObject data = new JSONObject(jsonStations);
+
+            JSONArray jsonArray = data.getJSONArray("stations");
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+
+                JSONObject jsonStation = jsonArray.getJSONObject(i);
+
+                Station station = new Station();
+
+                station.setId(jsonStation.getInt("id"));
+                station.setType(jsonStation.getString("type"));
+                station.setAltitude(jsonStation.getDouble("latitude"));
+                station.setLongitude(jsonStation.getDouble("longitude"));
+                station.setStreetName(jsonStation.getString("streetName"));
+                station.setStreetNumber(jsonStation.getInt("streetNumber"));
+                station.setAltitude(jsonStation.getInt("altitude"));
+                station.setSlots(jsonStation.getInt("slots"));
+                station.setBike(jsonStation.getInt("bikes"));
+
+                JSONArray jsonNearbyStations = jsonStation.getJSONArray("nearbyStations");
+                ArrayList<Integer> nearbyStationsNumber = new ArrayList<>();
+
+                for (int j = 0; j < jsonNearbyStations.length(); j++) {
+                    nearbyStationsNumber.add(jsonNearbyStations.getInt(j));
+                }
+
+
+                station.setNearbyStations(nearbyStationsNumber);
+
+                station.setStatus(jsonStation.getString("status"));
+
+                stations.add(station);
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return stations;
+
+    }
+
+
 }

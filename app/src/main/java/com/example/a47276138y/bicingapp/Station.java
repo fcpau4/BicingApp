@@ -1,5 +1,7 @@
 package com.example.a47276138y.bicingapp;
 
+import org.json.JSONArray;
+
 import java.util.ArrayList;
 
 /**
@@ -13,7 +15,7 @@ public class Station {
     private double latitude;
     private double longitude;
     private String streetName;
-    private String streetNumber;
+    private int streetNumber;
     private double altitude;
     private int slots;
     private int bike;
@@ -57,11 +59,11 @@ public class Station {
         this.longitude = longitude;
     }
 
-    public String getStreetNumber() {
+    public int getStreetNumber() {
         return streetNumber;
     }
 
-    public void setStreetNumber(String streetNumber) {
+    public void setStreetNumber(int streetNumber) {
         this.streetNumber = streetNumber;
     }
 
@@ -113,8 +115,9 @@ public class Station {
         this.status = status;
     }
 
-
-
-
-
+    @Override
+    public String toString() {
+        return "Id: " + getId() + "Type: " + getType() + "Latitude: " + getLatitude() + "Longitude: " + getLongitude() + "Street Number: " +
+                getStreetNumber() + "Street Name: " + getStreetName() + "Latitude: " + getLatitude() + "Bike: " + getBike() + "Slots: " + getSlots() + "Status: " + getStatus();
+    }
 }

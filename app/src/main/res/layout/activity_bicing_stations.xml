@@ -32,13 +32,4 @@
         app:srcCompat="@android:drawable/ic_dialog_email" />
 
 
-    <org.osmdroid.views.MapView
-        android:id="@id/map"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
-
-
-    </org.osmdroid.views.MapView>
-
 </android.support.design.widget.CoordinatorLayout>
