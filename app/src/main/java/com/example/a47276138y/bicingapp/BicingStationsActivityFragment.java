@@ -24,6 +24,8 @@ import java.util.List;
  */
 public class BicingStationsActivityFragment extends Fragment {
 
+    private double latBCN = 41.23;
+    private double lonBCN = 2.09;
     private MapView map;
     private IMapController mapController;
 
@@ -36,7 +38,7 @@ public class BicingStationsActivityFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_bicing_stations, container, false);
 
-        MapView map = (MapView) view.findViewById(R.id.map);
+        map = (MapView) view.findViewById(R.id.map);
         initializeMap();
         setZoom();
 
@@ -44,43 +46,33 @@ public class BicingStationsActivityFragment extends Fragment {
         MapOverlays mapOverlays = new MapOverlays();
         overlay.add(mapOverlays);
 
-
-
         return view;
     }
 
 
-
-
     private void setZoom() {
-
-        GeoPoint startPoint = new GeoPoint(60.169,  24.935);
+        GeoPoint startPoint = new GeoPoint(latBCN,  lonBCN);
         mapController = map.getController();
         mapController.setZoom(9);
         mapController.setCenter(startPoint);
-
     }
 
 
-
-
     private void initializeMap(){
-
         map.setTileSource(TileSourceFactory.MAPNIK);
         map.setBuiltInZoomControls(true);
         map.setMultiTouchControls(true);
-
     }
 
 
     @Override
     public void onStart() {
         super.onStart();
-        GetStatonsTask task = new GetStatonsTask();
+        GetStationsTask task = new GetStationsTask();
         task.execute();
     }
 
-    private class GetStatonsTask extends AsyncTask<Void, Void, ArrayList<Station>> {
+    private class GetStationsTask extends AsyncTask<Void, Void, ArrayList<Station>> {
         @Override
 
         protected ArrayList<Station> doInBackground(Void... voids) {

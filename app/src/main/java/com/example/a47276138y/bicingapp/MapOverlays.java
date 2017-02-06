@@ -1,5 +1,7 @@
 package com.example.a47276138y.bicingapp;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -16,29 +18,26 @@ import org.osmdroid.views.overlay.Overlay;
 
 public class MapOverlays extends Overlay{
 
-    //http://www.sgoliver.net/blog/mapas-en-android-iii-overlays-capas/
-
-    private double latitude = 60.169;
-    private double longitude = 24.935;
-
 
     @Override
     public void draw(Canvas canvas, MapView osmv, boolean shadow) {
         Projection projection = osmv.getProjection();
-        GeoPoint geoPoint = new GeoPoint(latitude, longitude);
+        GeoPoint geoPoint = new GeoPoint(41.23, 2.09);
 
         if (shadow == false)
         {
+
             Point centro = new Point();
             projection.toPixels(geoPoint, centro);
 
-            //Definimos el pincel de dibujo
             Paint p = new Paint();
-            p.setColor(Color.BLUE);
 
-            //Marca Ejemplo 1: Círculo y Texto
-            canvas.drawCircle(centro.x, centro.y, 5, p);
-            canvas.drawText("Helsinki", centro.x+10, centro.y+5, p);
+            Bitmap bm = BitmapFactory.decodeResource(
+                    osmv.getResources(),
+                    R.drawable.punter1);
+
+            canvas.drawBitmap(bm, centro.x - bm.getWidth(),
+                    centro.y - bm.getHeight(), p);
         }
     }
 }
