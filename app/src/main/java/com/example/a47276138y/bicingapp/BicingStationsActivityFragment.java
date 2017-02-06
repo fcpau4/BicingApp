@@ -14,13 +14,18 @@ import org.osmdroid.api.IMapController;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
+import org.osmdroid.views.overlay.Overlay;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A placeholder fragment containing a simple view.
  */
 public class BicingStationsActivityFragment extends Fragment {
+
+    private MapView map;
+    private IMapController mapController;
 
     public BicingStationsActivityFragment() {
     }
@@ -32,16 +37,39 @@ public class BicingStationsActivityFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_bicing_stations, container, false);
 
         MapView map = (MapView) view.findViewById(R.id.map);
+        initializeMap();
+        setZoom();
+
+        List<Overlay> overlay = map.getOverlays();
+        MapOverlays mapOverlays = new MapOverlays();
+        overlay.add(mapOverlays);
+
+
+
+        return view;
+    }
+
+
+
+
+    private void setZoom() {
+
+        GeoPoint startPoint = new GeoPoint(60.169,  24.935);
+        mapController = map.getController();
+        mapController.setZoom(9);
+        mapController.setCenter(startPoint);
+
+    }
+
+
+
+
+    private void initializeMap(){
+
         map.setTileSource(TileSourceFactory.MAPNIK);
         map.setBuiltInZoomControls(true);
         map.setMultiTouchControls(true);
 
-        GeoPoint startPoint = new GeoPoint(60.169,  24.935);
-        IMapController mapController = map.getController();
-        mapController.setZoom(9);
-        mapController.setCenter(startPoint);
-
-        return view;
     }
 
 
