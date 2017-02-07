@@ -10,28 +10,27 @@ import java.util.ArrayList;
 
 public class Station {
 
-    private int id;
+
+    private String id;
     private String type;
-    private double latitude;
-    private double longitude;
+    private String latitude;
+    private String longitude;
     private String streetName;
-    private int streetNumber;
-    private double altitude;
-    private int slots;
-    private int bike;
-    private ArrayList<Integer> nearbyStations;
+    private String streetNumber;
+    private String altitude;
+    private String slots;
+    private String bike;
     private String status;
 
     public Station(){
 
     }
 
-
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -43,28 +42,12 @@ public class Station {
         this.type = type;
     }
 
-    public double getLatitude() {
+    public String getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(double latitude) {
+    public void setLatitude(String latitude) {
         this.latitude = latitude;
-    }
-
-    public double getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
-    }
-
-    public int getStreetNumber() {
-        return streetNumber;
-    }
-
-    public void setStreetNumber(int streetNumber) {
-        this.streetNumber = streetNumber;
     }
 
     public String getStreetName() {
@@ -75,36 +58,44 @@ public class Station {
         this.streetName = streetName;
     }
 
-    public double getAltitude() {
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
+
+    public String getStreetNumber() {
+        return streetNumber;
+    }
+
+    public void setStreetNumber(String streetNumber) {
+        this.streetNumber = streetNumber;
+    }
+
+    public String getAltitude() {
         return altitude;
     }
 
-    public void setAltitude(double altitude) {
+    public void setAltitude(String altitude) {
         this.altitude = altitude;
     }
 
-    public int getBike() {
-        return bike;
-    }
-
-    public void setBike(int bike) {
-        this.bike = bike;
-    }
-
-    public int getSlots() {
+    public String getSlots() {
         return slots;
     }
 
-    public void setSlots(int slots) {
+    public void setSlots(String slots) {
         this.slots = slots;
     }
 
-    public ArrayList<Integer> getNearbyStations() {
-        return nearbyStations;
+    public String getBike() {
+        return bike;
     }
 
-    public void setNearbyStations(ArrayList<Integer> nearbyStations) {
-        this.nearbyStations = nearbyStations;
+    public void setBike(String bike) {
+        this.bike = bike;
     }
 
     public String getStatus() {
@@ -114,6 +105,7 @@ public class Station {
     public void setStatus(String status) {
         this.status = status;
     }
+
 
     @Override
     public String toString() {

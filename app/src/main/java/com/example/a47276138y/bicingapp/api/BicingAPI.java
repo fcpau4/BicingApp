@@ -81,26 +81,15 @@ public class BicingAPI {
 
                 Station station = new Station();
 
-                station.setId(jsonStation.getInt("id"));
+                station.setId(jsonStation.getString("id"));
                 station.setType(jsonStation.getString("type"));
-                station.setAltitude(jsonStation.getDouble("latitude"));
-                station.setLongitude(jsonStation.getDouble("longitude"));
+                station.setAltitude(jsonStation.getString("latitude"));
+                station.setLongitude(jsonStation.getString("longitude"));
                 station.setStreetName(jsonStation.getString("streetName"));
-                station.setStreetNumber(jsonStation.getInt("streetNumber"));
-                station.setAltitude(jsonStation.getInt("altitude"));
-                station.setSlots(jsonStation.getInt("slots"));
-                station.setBike(jsonStation.getInt("bikes"));
-
-                JSONArray jsonNearbyStations = jsonStation.getJSONArray("nearbyStations");
-                ArrayList<Integer> nearbyStationsNumber = new ArrayList<>();
-
-                for (int j = 0; j < jsonNearbyStations.length(); j++) {
-                    nearbyStationsNumber.add(jsonNearbyStations.getInt(j));
-                }
-
-
-                station.setNearbyStations(nearbyStationsNumber);
-
+                station.setStreetNumber(jsonStation.getString("streetNumber"));
+                station.setAltitude(jsonStation.getString("altitude"));
+                station.setSlots(jsonStation.getString("slots"));
+                station.setBike(jsonStation.getString("bikes"));
                 station.setStatus(jsonStation.getString("status"));
 
                 stations.add(station);
