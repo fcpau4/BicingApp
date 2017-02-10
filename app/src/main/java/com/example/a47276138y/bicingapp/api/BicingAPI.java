@@ -83,7 +83,7 @@ public class BicingAPI {
 
                 station.setId(jsonStation.getString("id"));
                 station.setType(jsonStation.getString("type"));
-                station.setAltitude(jsonStation.getString("latitude"));
+                station.setLatitude(jsonStation.getString("latitude"));
                 station.setLongitude(jsonStation.getString("longitude"));
                 station.setStreetName(jsonStation.getString("streetName"));
                 station.setStreetNumber(jsonStation.getString("streetNumber"));

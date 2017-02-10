@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    android:id="@+id/bubble_layout"
+    android:background="@drawable/bonuspack_bubble">
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/rsz_star"
+        android:id="@+id/imageView"
+        android:clickable="true"
+        android:background="?android:attr/floatingToolbarItemBackgroundBorderlessDrawable"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true" />
+
+    <TextView
+        android:text="Bikes Available"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/availableBikes"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="11dp" />
+
+    <TextView
+        android:text="Station Name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/stationName"
+        android:layout_marginLeft="11dp"
+        android:layout_alignBaseline="@+id/availableBikes"
+        android:layout_alignBottom="@+id/availableBikes"
+        android:layout_alignParentLeft="true" />
+</RelativeLayout>

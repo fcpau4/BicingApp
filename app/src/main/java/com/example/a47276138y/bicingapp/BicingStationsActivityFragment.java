@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
 import com.example.a47276138y.bicingapp.api.BicingAPI;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.osmdroid.api.IMapController;
 import org.osmdroid.bonuspack.clustering.RadiusMarkerClusterer;
@@ -27,62 +29,60 @@ import java.util.List;
  */
 public class BicingStationsActivityFragment extends Fragment {
 
-    private double latBCN = 41.23;
-    private double lonBCN = 2.09;
-    private MapView map;
-    private IMapController mapController;
-    private ArrayList<Station> stations;
-    private RadiusMarkerClusterer stationsMarkers;
+        private double latBCN = 41.23;
+        private double lonBCN = 2.09;
+        private MapView map;
+        private IMapController mapController;
+        private ArrayList<Station> stations;
 
-    public BicingStationsActivityFragment() {
-    }
+        public BicingStationsActivityFragment() {
+        }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_bicing_stations, container, false);
+            View view = inflater.inflate(R.layout.fragment_bicing_stations, container, false);
 
-        map = (MapView) view.findViewById(R.id.map);
+            map = (MapView) view.findViewById(R.id.map);
 
+            stations = new ArrayList<Station>();
 
-        stations = new ArrayList<Station>();
+            initializeMap();
+            setZoom();
 
-
-        initializeMap();
-        setZoom();
-
-        List<Overlay> overlay = map.getOverlays();
-        MapOverlays mapOverlays = new MapOverlays();
-        overlay.add(mapOverlays);
-
-        return view;
-    }
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference myRef = database.getReference("message");
 
 
-    private void setZoom() {
-        GeoPoint startPoint = new GeoPoint(latBCN,  lonBCN);
-        mapController = map.getController();
-        mapController.setZoom(9);
-        mapController.setCenter(startPoint);
-    }
+            return view;
+        }
 
 
-    private void initializeMap(){
-        map.setTileSource(TileSourceFactory.MAPNIK);
-        map.setBuiltInZoomControls(true);
-        map.setMultiTouchControls(true);
-    }
+        private void setZoom() {
+            GeoPoint startPoint = new GeoPoint(latBCN,  lonBCN);
+            mapController = map.getController();
+            mapController.setZoom(9);
+            mapController.setCenter(startPoint);
+        }
 
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        GetStationsTask task = new GetStationsTask();
-        task.execute();
-    }
+        private void initializeMap(){
+            map.setTileSource(TileSourceFactory.MAPNIK);
+            map.setBuiltInZoomControls(true);
+            map.setMultiTouchControls(true);
+        }
 
-    private class GetStationsTask extends AsyncTask<Void, Void, ArrayList<Station>> {
+
+        @Override
+        public void onStart() {
+            super.onStart();
+            GetStationsTask task = new GetStationsTask();
+            task.execute();
+        }
+
+
+        private class GetStationsTask extends AsyncTask<Void, Void, ArrayList<Station>> {
         @Override
 
         protected ArrayList<Station> doInBackground(Void... voids) {
@@ -92,6 +92,8 @@ public class BicingStationsActivityFragment extends Fragment {
             return stations;
         }
 
+
+
         @Override
         protected void onPostExecute(ArrayList<Station> stations) {
 
@@ -99,17 +101,27 @@ public class BicingStationsActivityFragment extends Fragment {
 
                 Marker marker = new Marker(map);
                 GeoPoint point = new GeoPoint(
-                        Double.parseDouble(station.getAltitude()),
-                        Double.parseDouble(station.getLongitude())
+                        Double.parseDouble(station.getLatitude()),
+                        Double.parseDouble(station.getLongitude()),
+                        Double.parseDouble(station.getAltitude())
                 );
+
                 marker.setPosition(point);
                 marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-                marker.setIcon(getResources().getDrawable(R.drawable.localizacion));
-                marker.setTitle(station.getId());
-                stationsMarkers.add(marker);
+                marker.setTitle("Available: " + station.getBike() + "\n" +
+                        "Station: " + station.getStreetName());
+
+                if(station.getType().equals("BIKE-ELECTRIC")){
+                    marker.setIcon(getResources().getDrawable(R.drawable.electric));
+                }else{
+                    marker.setIcon(getResources().getDrawable(R.drawable.regular));
+                }
+
+                map.getOverlays().add(marker);
+
             }
 
-            stationsMarkers.invalidate();
+
             map.invalidate();
         }
     }
