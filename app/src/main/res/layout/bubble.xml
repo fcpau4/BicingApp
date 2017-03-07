@@ -10,32 +10,34 @@
     android:background="@drawable/bonuspack_bubble">
 
 
-    <ImageView
+    <!-- "android:attr/floatingToolbarItemBackgroundBorderlessDrawable"  -->
+
+    <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/rsz_star"
-        android:id="@+id/imageView"
-        android:clickable="true"
-        android:background="?android:attr/floatingToolbarItemBackgroundBorderlessDrawable"
+        app:srcCompat="@drawable/star_gold_257"
+        android:id="@+id/bt_star"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true" />
-
-    <TextView
-        android:text="Bikes Available"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/availableBikes"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="11dp" />
 
     <TextView
         android:text="Station Name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/stationName"
-        android:layout_marginLeft="11dp"
-        android:layout_alignBaseline="@+id/availableBikes"
-        android:layout_alignBottom="@+id/availableBikes"
-        android:layout_alignParentLeft="true" />
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="22dp" />
+
+    <TextView
+        android:text="Bikes Available"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/availableBikes"
+        android:layout_marginRight="37dp"
+        android:layout_alignBaseline="@+id/stationName"
+        android:layout_alignBottom="@+id/stationName"
+        android:layout_toLeftOf="@+id/bt_star" />
+
+    <!-- android:background="?android:attr/floatingToolbarItemBackgroundBorderlessDrawable" -->
 </RelativeLayout>

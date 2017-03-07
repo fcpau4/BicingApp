@@ -1,15 +1,11 @@
 package com.example.a47276138y.bicingapp.api;
 
 import android.net.Uri;
-import android.util.Log;
-
 import com.example.a47276138y.bicingapp.Station;
 import com.example.a47276138y.bicingapp.network_utils.NetworkConnection;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -72,7 +68,6 @@ public class BicingAPI {
 
         try {
             JSONObject data = new JSONObject(jsonStations);
-
             JSONArray jsonArray = data.getJSONArray("stations");
 
             for (int i = 0; i < jsonArray.length(); i++) {

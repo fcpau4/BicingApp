@@ -1,5 +1,15 @@
 package com.example.a47276138y.bicingapp;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.LinearGradient;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Shader;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -62,7 +72,7 @@ public class BicingStationsActivityFragment extends Fragment {
         private void setZoom() {
             GeoPoint startPoint = new GeoPoint(latBCN,  lonBCN);
             mapController = map.getController();
-            mapController.setZoom(9);
+            mapController.setZoom(12);
             mapController.setCenter(startPoint);
         }
 
@@ -108,23 +118,45 @@ public class BicingStationsActivityFragment extends Fragment {
 
                 marker.setPosition(point);
                 marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-                marker.setTitle("Available: " + station.getBike() + "\n" +
-                        "Station: " + station.getStreetName());
+                marker.setTitle("\nSTATION NAME: " + station.getStreetName() + "\n" + "BIKES AVAILABLE: " + station.getBike() + "\n");
+
+
 
                 if(station.getType().equals("BIKE-ELECTRIC")){
-                    marker.setIcon(getResources().getDrawable(R.drawable.electric));
+
+
+                    if(station.getPercentage()>=90){
+                        marker.setIcon(getResources().getDrawable(R.drawable.electric));
+                    }else if(station.getPercentage() >65 && station.getPercentage() < 90){
+                        marker.setIcon(getResources().getDrawable(R.drawable.electric_three_quarters));
+                    }else if(station.getPercentage()>40 && station.getPercentage()<=65 ){
+                        marker.setIcon(getResources().getDrawable(R.drawable.half_electric));
+                    }else if(station.getPercentage()>15 && station.getPercentage() <=40 ){
+                        marker.setIcon(getResources().getDrawable(R.drawable.electric_one_quarter));
+                    }else if(station.getPercentage()<=0 || station.getPercentage()<=15){
+                        marker.setIcon(getResources().getDrawable(R.drawable.electric_empty));
+                    }
+
                 }else{
-                    marker.setIcon(getResources().getDrawable(R.drawable.regular));
+                    if(station.getPercentage()>=90){
+                        marker.setIcon(getResources().getDrawable(R.drawable.regular));
+                    }else if(station.getPercentage() >=65 && station.getPercentage() < 89){
+                        marker.setIcon(getResources().getDrawable(R.drawable.regular_three_quarters));
+                    }else if(station.getPercentage()>40 && station.getPercentage()<=65 ){
+                        marker.setIcon(getResources().getDrawable(R.drawable.regular_half));
+                    }else if(station.getPercentage()>15 && station.getPercentage() <=40 ){
+                        marker.setIcon(getResources().getDrawable(R.drawable.regular_one_quarter));
+                    }else if(station.getPercentage()<=0 || station.getPercentage()<=15){
+                        marker.setIcon(getResources().getDrawable(R.drawable.regular_empty));
+                    }
                 }
-
                 map.getOverlays().add(marker);
-
             }
-
 
             map.invalidate();
         }
     }
+
 
 
 }

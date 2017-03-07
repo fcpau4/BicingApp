@@ -1,5 +1,8 @@
 package com.example.a47276138y.bicingapp;
 
+import android.widget.ImageButton;
+import android.widget.RelativeLayout;
+
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.infowindow.InfoWindow;
 
@@ -19,7 +22,8 @@ public class PopUp extends InfoWindow {
 
     @Override
     public void onOpen(Object item) {
-
+        RelativeLayout  layout = (RelativeLayout) mView.findViewById(R.id.bubble_layout);
+        ImageButton bt_img = (ImageButton) mView.findViewById(R.id.bt_star);
     }
 
     @Override
