@@ -106,10 +106,15 @@ public class Station {
         this.status = status;
     }
 
+    public int getPercentage(){
+        Double percentage = (Double.parseDouble(bike) / Double.parseDouble(slots)) * 100;
+        return percentage.intValue();
+    }
 
     @Override
     public String toString() {
-        return "Id: " + getId() + "Type: " + getType() + "Latitude: " + getLatitude() + "Longitude: " + getLongitude() + "Street Number: " +
-                getStreetNumber() + "Street Name: " + getStreetName() + "Latitude: " + getLatitude() + "Bike: " + getBike() + "Slots: " + getSlots() + "Status: " + getStatus();
+        return "\nId: " + getId() + "\nType: " + getType() + "\nLatitude: " + getLatitude() + "\nLongitude: " + getLongitude() + "\nStreet Number: " +
+                getStreetNumber() + "\nStreet Name: " + getStreetName() + "\nLatitude: " + getLatitude() + "\nBike: " + getBike() + "\nSlots: " + getSlots() + "\nStatus: " + getStatus()
+                + "\nPercentage: " + getPercentage() + "\n\n";
     }
 }
